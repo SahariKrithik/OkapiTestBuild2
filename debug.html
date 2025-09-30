@@ -11,6 +11,7 @@
     th { background: #222; }
     .ok { color: #0f0; font-weight: bold; }
     .fail { color: #f33; font-weight: bold; }
+    .warn { color: #ff0; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -43,10 +44,14 @@
 
       for (const [key, exp] of Object.entries(expectedHeaders)) {
         const got = headers[key];
-        if (got && got.trim() === exp) {
+        if (!got) {
+          checks.push(`<td class="fail">❌ ${key}: missing (expected: ${exp})</td>`);
+        } else if (got.trim() === exp) {
           checks.push(`<td class="ok">✅ ${key}: ${got}</td>`);
+        } else if (got.includes("br, br")) {
+          checks.push(`<td class="warn">⚠️ ${key}: ${got} (duplicate, should be just "${exp}")</td>`);
         } else {
-          checks.push(`<td class="fail">❌ ${key}: ${got || "missing"} (expected: ${exp})</td>`);
+          checks.push(`<td class="fail">❌ ${key}: ${got} (expected: ${exp})</td>`);
         }
       }
       return checks;
