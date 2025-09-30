@@ -3,13 +3,15 @@
     {
       "source": "/Build/(.*)\\.loader\\.js",
       "headers": [
-        { "key": "Content-Type", "value": "application/javascript" }
+        { "key": "Content-Type", "value": "application/javascript" },
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     },
     {
       "source": "/Build/(.*)\\.framework\\.js\\.br",
       "headers": [
         { "key": "Content-Type", "value": "application/javascript" },
+        { "key": "Content-Encoding", "value": "br" },
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     },
@@ -17,6 +19,7 @@
       "source": "/Build/(.*)\\.data\\.br",
       "headers": [
         { "key": "Content-Type", "value": "application/octet-stream" },
+        { "key": "Content-Encoding", "value": "br" },
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     },
@@ -24,8 +27,10 @@
       "source": "/Build/(.*)\\.wasm\\.br",
       "headers": [
         { "key": "Content-Type", "value": "application/wasm" },
+        { "key": "Content-Encoding", "value": "br" },
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     }
-  ]
+  ],
+  "compression": false
 }
